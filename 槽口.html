@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+
+	    <div id="app">
+	    	<aaa>
+	    		<ul slot="ul-slot">
+		    		<li>1</li>
+		    		<li>2</li>
+		    		<li>3</li>
+		    	</ul>
+		    	<ol slot="ol-slot">
+		    		<li>a</li>
+		    		<li>b</li>
+		    		<li>c</li>
+		    	</ol>
+	    	</aaa>
+	    </div>
+
+		<template id="tema">
+			<h3>{{msg1}}</h3>
+			<slot name="ul-slot"></slot>
+			<slot name="ol-slot"></slot>
+		</template>
+
+	    <script>
+	    	new Vue({
+	    		el:"#app",
+	    		components:{
+	    			"aaa":{
+	    				template:"#tema",
+	    				data(){
+	    					return {
+	    						msg1:"父组件"
+	    					}
+	    				}
+	    			}
+	    		}
+	    	})
+	    </script>
+	
+    </body>
+</html>

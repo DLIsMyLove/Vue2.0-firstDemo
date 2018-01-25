@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+    <div id="app">
+    	<aaa></aaa>
+    </div>
+		<!-- <script id="myTem" type="x-template">
+			<h3>我是标题3</h3>
+			<ul>
+				<li>1</li>
+				<li></li>
+				<li></li>
+			</ul>
+		</script> -->
+		
+		<template id="myTem">
+			<h3>{{msg}}</h3>
+			<ul>
+				<li>1</li>
+				<li></li>
+				<li></li>
+			</ul>
+		</template>
+		<script>
+
+			
+			new Vue({
+				el:"#app",
+				components:{
+					aaa:{
+						template:"#myTem",
+						data(){
+							return {
+								msg:"标题"
+							}
+						}
+					}
+				}
+			})
+
+		</script>
+    </body>
+</html>

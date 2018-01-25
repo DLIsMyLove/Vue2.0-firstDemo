@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="node_modules/vue/dist/vue.js"></script>
+        <script src="node_modules/vue-router/dist/vue-router.js"></script>
+    </head>
+    <body>
+		
+
+    	<div id="app">
+    		<input type="button" value="添加路由" @click="push">
+    		<input type="button" value="替换路由" @click="replace">
+    		<ul>
+    			<li>
+    				<router-link to="/home">首页</router-link>
+    				<router-link to="/news">新闻</router-link>
+    			</li>
+    		</ul>
+    		<div>
+    			<router-view></router-view>
+    		</div>
+
+    	</div>
+
+		<template id="detail">
+			<div>{{$route.params}}</div>
+		</template>
+
+		<script>
+			//定义组件
+			var Home ={
+				template:`
+					<div>
+						<h3>我是主页</h3>
+						<router-link to="/home/login">登录</router-link>
+						<router-link to="/home/reg">注册</router-link>
+						<div>
+							<router-view></router-view>
+						</div>
+					</div>
+				`
+			};
+			var News ={
+				template:`
+					<div>
+						<h3>我是新闻页面</h3>
+						<ul>
+							<router-link to="/news/detail/001">信息1</router-link>
+							<router-link to="/news/detail/002">信息2</router-link>
+							<router-link to="/news/detail/003">信息3</router-link>
+						</ul>
+						<div>
+							<router-view></router-view>
+						</div>
+					</div>
+				`
+			};
+
+			var Login={
+				template:`<p>我是登录信息</p>`
+			};
+
+			var Reg={
+				template:`<p>我是注册信息</p>`
+			};
+
+			var Detail={
+				template:'#detail'
+			};
+
+			//配置路由
+			const routes=[
+				{
+					path:"/home",component:Home,
+					children:[
+						{path:"login",component:Login},
+						{path:"reg",component:Reg}
+					]
+				},
+				{
+					path:"/news",component:News,
+					children:[
+						{path:"detail/:id",component:Detail}
+					]
+				},
+				{path:"*",redirect:"/home"}
+			]
+			//生成路由实例
+			const router = new VueRouter({
+				routes
+			})
+
+			//挂载根元素
+			new Vue({
+				router,
+				el:"#app",
+				methods:{
+					push(){
+						router.push({path:"news"})
+					},
+					replace(){
+						router.replace({path:"news"})
+					}
+				}
+			})
+
+		</script>
+    </body>
+</html>

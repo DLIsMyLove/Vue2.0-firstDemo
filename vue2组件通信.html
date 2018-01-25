@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue2.0.js"></script>
+    </head>
+    <body>
+
+    	<div id="app">
+    		<p>父：{{msg}}</p>
+    		<my-aaa :getmes="msg"></my-aaa>
+    	</div>
+		<template id="aaa">
+			<div>
+				<span>{{msg2}}</span>
+    			<input type="button" value="按钮" @click="change">
+			</div>
+		</template>
+    	<script>
+    		new Vue({
+    			el:"#app",
+    			data:{
+    				msg:"我是父组件的数据"
+    			},
+    			components:{
+    				"my-aaa":{
+    					props:["getmes"],
+    					template:"#aaa",
+    					data(){
+    						return {
+    							msg2:"子组件数据"
+    						}
+    					},
+    					mounted(){
+    						this.msg2 = this.getmes;
+    					},
+    					methods:{
+    						change(){
+    							this.msg2 = "被改了"
+    						}
+    					}
+    				}
+    			}
+    		})
+
+    	</script>
+    </body>
+</html>

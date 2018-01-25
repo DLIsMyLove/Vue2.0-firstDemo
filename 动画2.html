@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue2.0.js"></script>
+        <style>	
+        		#box{
+        			width: 500px;
+        			height: auto;
+        			margin: 0 auto;
+        		}
+				p{
+					width: 100px;
+					height: 100px;
+					background-color: #ccc;
+				}
+				
+				.move-enter-active,.move-leave-active{
+					transition: 1s all ease;
+				}
+
+				.move-enter-active{
+					width: 500px;
+				}
+				.move-leave-active{
+					width: 100px;
+				}
+				
+				.move-enter,.move-leave{
+					width: 100px;
+				}
+        </style>
+    </head>
+    <body>
+
+    <div id="box">
+    	<transition name="move"><p></p></transition>
+    	<input type="button" value="运动" @click="move"/>
+    </div>
+	
+		<script>	
+
+				new Vue({
+					el:"#box",
+					methods:{
+						move(){
+							
+						}
+					}
+				})
+
+		</script>
+
+
+    </body>
+</html>

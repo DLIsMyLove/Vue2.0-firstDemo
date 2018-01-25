@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue2.0.js"></script>
+    </head>
+    <body>
+
+    	<div id="app">
+    		<com-a></com-a>
+    		<com-b></com-b>
+    		<com-c></com-c>
+	    </div>
+		<script>
+
+			var Event = new Vue();
+
+			var A={
+				template:`
+					<div>
+						<span>我是A组件数据-->{{a}}</span>
+						<input type="button" value="把数据A给C" @click="send">
+					</div>
+				`,
+				data(){
+					return {
+						a:"组件A的数据"
+					}
+				},
+				methods:{
+					send(){
+						Event.$emit("msg-a",this.a)
+					}
+				}
+			};
+
+			var B={
+				template:`
+					<div>
+						<span>我是B组件数据-->{{b}}</span>
+						<input type="button" value="把数据B给C" @click="send">
+					</div>
+				`,
+				data(){
+					return {
+						b:"组件B的数据"
+					}
+				},
+				methods:{
+					send(){
+						Event.$emit("msg-b",this.b)
+					}
+				}
+			};
+
+			var C={
+				template:`
+					<div>
+						<h3>我是C组件数据</h3>
+						得到数据A:{{this.a}}<br>
+						得到数据B:{{this.b}}
+					</div>
+				`,
+				data(){
+					return {
+						a:"",
+						b:""
+					}
+				},
+				mounted(){
+					Event.$on("msg-a",function(a){
+						this.a = a;
+					}.bind(this)),
+					Event.$on("msg-b",function(b){
+						this.b = b;
+					}.bind(this))
+				}
+			};
+
+
+			new Vue({
+				el:"#app",
+				components:{
+					"com-a":A,
+					"com-b":B,
+					"com-c":C
+				}
+			})
+
+		</script>
+
+
+    </body>
+</html>

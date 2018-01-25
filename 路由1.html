@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.js"></script>
+        <script src="vue-router/dist/vue-router.js"></script>
+
+        <style>
+			.v-link-active{
+				font-size: 22px;
+				color: #f40;
+			}
+        </style>
+    </head>
+    <body>
+    <div id="app">
+    	<ul>
+    		<a v-link="{path:'/home'}">首页</a>
+			<a v-link="{path:'/news'}">新闻</a>
+    	</ul>
+    	<div>
+    		<router-view></router-view>
+    	</div>
+    </div>
+		
+		<template id="home">
+			<h3>我是主页的内容</h3>
+		</template>
+		<template id="news">
+			<h3>我是新闻的内容</h3>
+		</template>
+		<script>
+
+			//1.根组件
+			var app = Vue.extend();
+
+			//2.Home News 组件
+			var Home = Vue.extend({
+				template:"#home"
+			})
+
+			var News = Vue.extend({
+				template:"#news"
+			})
+
+			//3.准备路由
+			var router = new VueRouter();
+
+			//4.关联
+			router.map({
+				"/home":{
+					component:Home
+				},
+				"/news":{
+					component:News
+				}
+			})
+
+			//5.启动裸游
+			router.start(app,"#app");
+
+			//6.跳转
+			router.redirect({
+				"/":"/home"
+			})
+		</script>
+
+    </body>
+</html>

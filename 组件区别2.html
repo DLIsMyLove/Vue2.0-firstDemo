@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+
+    	<div id="app">
+    		<bbb></bbb>
+    	</div>
+
+		<template id="aaa">
+			<h3>标题</h3>
+		</template>
+    	<script>
+
+
+    		//var app = Vue.extend();
+    		
+    		//Vue的子组件
+    		var rootcom=Vue.extend({
+    			template:"#aaa"
+    		});
+    		Vue.component("bbb",rootcom);
+			//console.log(app);
+
+			//var appvm=new app();
+			//console.log(appvm);
+
+			//var vm = new Vue();
+    		//console.log(vm);
+    		
+    		//根组件
+    		new Vue({
+    			el:"#app"
+    		})
+    		
+
+    	</script>
+    </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
+		<script type="text/javascript" src="lib/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="lib/bootstrap.js"></script>
+		<script type="text/javascript" src="vue.js"></script>
+    </head>
+    <body>
+    	
+    <div class="container" id="app">
+    	
+    	<form role="form">
+    		<div class="form-group">
+    			<label for="username">用户名：</label>
+    			<input v-model="name" type="text" id="username" class="form-control" placeholder="请输入姓名..." />
+    		</div>
+    		<div class="form-group">
+    			<label for="age">年龄：</label>
+    			<input v-model="age" type="text" id="age" class="form-control" placeholder="请输入年龄..." />
+    		</div>
+    		<div class="form-group">
+    			<input v-on:click="add()" class="btn btn-primary btn-sm" type="button" value="确认" />
+    			<input class="btn btn-danger btn-sm" type="reset" value="重置" />
+    		</div>
+    	</form>
+		
+    	<table class="table table-bordered table-hover">
+    		<caption class="h3">信息列表</caption>
+    		<tr class="text-danger">
+    			<th class="text-center">序号</th>
+    			<th class="text-center">姓名</th>
+    			<th class="text-center">年龄</th>
+    			<th class="text-center">操作</th>
+    		</tr>	
+    		<tr class="text-center" v-for="(item,index) in dataArray">
+    			<td>{{index+1}}</td>
+    			<td>{{item.name}}</td>
+    			<td>{{item.age}}</td>
+    			<td>
+    				<button v-on:click="saveIndex(index)" data-toggle="modal" data-target="#layer" class="btn btn-sm btn-primary">删除</button>
+    			</td>
+    		</tr>
+    		<tr v-show="dataArray.length != 0">
+    			<td colspan="4" class="text-right">
+    				<input v-on:click="delAll()" data-toggle="modal" data-target="#layer" class="btn btn-sm btn-danger" type="button" value="删除全部" />
+    			</td>
+    		</tr>
+    		<tr v-show="dataArray.length == 0">
+    			<td colspan="4" class="text-center text-muted"><p>暂无数据...</p></td>
+    		</tr>
+    	</table>
+		<!-- 模态框 -->
+		<div role="dialog" class="modal fade bs-example-modal-sm" id="layer">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+						<h4 class="modal-title">{{title}}</h4>
+					</div>
+					<div class="modal-body text-right">
+						<button type="button" data-dismiss="modal" class="btn btn-primary btn-sm" v-on:click="del()">确认</button>
+						<button type="button" data-dismiss="modal" class="btn btn-danger btn-sm">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+	
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					dataArray:[],
+					name:"",
+					age:"",
+					title:"确认删除吗？",
+					nowIndex:-100
+				},
+				methods:{
+					add:function(){
+						this.dataArray.push({
+							name:this.name,
+							age:this.age
+						})
+						this.name = "";
+						this.age = "";
+					},
+					saveIndex:function(index){
+						this.nowIndex = index;
+						this.title = "确认删除吗？";
+					},
+					delAll:function(){
+						this.nowIndex = -2;
+						this.title = "确认删除全部吗？";
+					},
+					del:function(){
+						if(this.nowIndex == -2){
+							this.dataArray = [];
+						}else{
+							this.dataArray.splice(this.nowIndex,1);
+						}
+					}
+
+				}
+			})
+
+		</script>
+		
+
+		
+
+
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+    	<div id="app">
+    		<aaa></aaa>
+    	</div>
+		<script>
+		//方式一
+			// var myAaa = Vue.extend({
+			// 	template:"<h3>{{msg}}</h3>",
+			// 	data(){
+			// 		return {
+			// 			msg:"我是标题"
+			// 		}
+			// 	}
+			// });
+			//全局组件
+			//Vue.component("aaa",myAaa);
+
+			// new Vue({
+			// 	el:"#app",
+			// 	//局部组件
+			// 	components:{
+			// 		aaa:myAaa
+			// 	}
+			// })
+		
+		//方式二
+			// Vue.component("aaa",{
+			// 	template:"{{msg}}",
+			// 	data(){
+			// 		return {
+			// 			msg:"aaa"
+			// 		}
+			// 	}
+			// })
+		
+			new Vue({
+				el:"#app",
+				data:{
+					msg:"哈哈哈"
+				},
+				components:{
+					aaa:{
+						template:"{{msg}}",
+						data(){
+							return {
+								msg:"123"
+							}
+						}
+					}
+				}
+				
+			})
+
+
+		</script>	
+    </body>
+</html>

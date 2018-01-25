@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+
+		<div id="app">
+			<aaa></aaa>
+		</div>
+		
+		<template id="aaa">
+			<h3>父组件：{{msg1}}</h3>
+			<bbb @send-mes="get"></bbb>
+		</template>
+		
+		<template id="bbb">
+			<span>子组件：</span>
+			<input @click="send" type="button" value="按钮">
+		</template>
+		<script>
+			new Vue({
+				el:"#app",
+				components:{
+					"aaa":{
+						data(){
+							return {
+								msg1:"我是父组件的数据"
+							}
+						},
+						methods:{
+							get(){
+								alert("我拿到子组件信息了")
+							}
+						},
+						template:"#aaa",
+						components:{
+							"bbb":{
+								data(){
+									return {
+										msg2:"我是子组件数据"
+									}
+								},
+								methods:{
+									send(){
+										this.$emit("send-mes",this.msg2);
+									}
+								},
+								template:"#bbb"
+							}
+						}
+					}
+				}
+			})
+
+		</script>
+
+    </body>
+</html>
